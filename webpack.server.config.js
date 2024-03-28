@@ -2,7 +2,7 @@ var base = require("./webpack.base");
 const { merge } = require("webpack-merge");
 
 module.exports = merge(base, {
-	entry: "./src/server",
+	entry: "./src/server/server",
   target: "node",
   output: {
     path: base.output.path,

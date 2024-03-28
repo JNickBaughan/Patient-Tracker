@@ -1,6 +1,10 @@
 
 import express, { Request, Response } from 'express';
-let bodyParser = require('body-parser')
+let bodyParser = require('body-parser');
+
+import patientRoutes from "./routes/patients";
+
+
 let PORT = 3000;
 let server = express();
 
@@ -25,6 +29,9 @@ server.get("/", (_: Request, res: Response) => {
   </html>
   `);
 });
+
+server.use('/patients', patientRoutes);
+
 
 server.listen(PORT, function(){
 	console.log('server listening on port: ' + PORT);
