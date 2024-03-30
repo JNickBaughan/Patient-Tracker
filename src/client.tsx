@@ -4,32 +4,39 @@ import ReactDOM from "react-dom";
 const App = () => {
 
 	const [patients, updatePatients] = React.useState([]);
+	const [patient, updatePatient] = React.useState({});
 
 	React.useEffect(() => {
 		
 		const fetchData = async () => {
-		  
 		  const response = await fetch('patients', {
-			method: "POST", // *GET, POST, PUT, DELETE, etc.
+			method: "POST", 
 			headers: {
 			  "Content-Type": "application/json",
 			},
-			body: JSON.stringify({}), // body data type must match "Content-Type" header
+			body: JSON.stringify({}),
 		  });
-		 
 		  updatePatients(await response.json());
 		}
 
 		fetchData();
 	  
-
 	  }, [])
+
+	  if(patient?.id){
+		return (
+			<div>
+				<p>First: {patient.firstName}</p>
+				<p>Last: {patient.lastName}</p>
+				<p>Age: 43</p>
+			</div>)
+	  }
 
 	
 
- return (<div>
-     		{patients.map(m => (<p>{m.firstName} {m.lastName}</p>))}
-   		</div>);
+	return (<div>
+				{patients.map(m => (<p onClick={() => { updatePatient(m)}}>{m.firstName} {m.lastName}</p>))}
+			</div>);
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));
