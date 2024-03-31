@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { PatientSlim  } from "../common/types/types";
+
 const App = () => {
 
-	const [patients, updatePatients] = React.useState([]);
-	const [patient, updatePatient] = React.useState({});
+	const [patients, updatePatients] = React.useState<PatientSlim[]>([]);
+	const [patient, updatePatient] = React.useState<PatientSlim | null>(null);
 
 	React.useEffect(() => {
 		
@@ -23,7 +25,7 @@ const App = () => {
 	  
 	  }, [])
 
-	  if(patient?.id){
+	  if(patient && patient?.id){
 		return (
 			<div>
 				<p>First: {patient.firstName}</p>
