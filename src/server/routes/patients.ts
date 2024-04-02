@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { PatientSlim } from '../../common/types/types';
+import { PatientSlim, PatientDetails } from '../../common/types/types';
 const router = express.Router();
 
 router.post('/', (_: Request, res: Response<PatientSlim[]>)  => {
@@ -9,6 +9,11 @@ router.post('/', (_: Request, res: Response<PatientSlim[]>)  => {
         { id: 74, firstName: "Glen", lastName: "Quagmire", photoUrl: "" },
         { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "" }
     ]);
+});
+
+router.get('/:id', (req: Request, res: Response<PatientDetails>)  => {
+    const { id } = req.params;
+    res.send({ id: 15, firstName: "Nick!", lastName: "Baughan", photoUrl: "" });
 });
 
 export default router;
