@@ -13,6 +13,7 @@ router.post('/', (_: Request, res: Response<PatientSlim[]>)  => {
 
 router.get('/:id', (req: Request, res: Response<PatientDetails>)  => {
     const { id } = req.params;
+    //TODO: make mock database and lookup real contact 
     res.send({ id: 15, firstName: "Nick!", lastName: "Baughan", photoUrl: "" });
 });
 

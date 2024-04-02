@@ -42,7 +42,7 @@ const App = () => {
 
 	  }, [patientId]);
 
-	  if(patient && patient?.id){
+	  if(patient && patient?.id){ // TODO - make this a separate component
 		return (
 			<div>
 				<p>First: {patient.firstName}</p>
