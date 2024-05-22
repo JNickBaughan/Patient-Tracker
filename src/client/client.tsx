@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import { PatientSlim  } from "../common/types/types";
+import '../app.css';
+import { Grid } from "./components/Grid";
+import { PatientSlim, PatientDetails  } from "../common/types/types";
 
 const App = () => {
 
 	const [patients, updatePatients] = React.useState<PatientSlim[]>([]);
-	const [patientId, updatePatientId] = React.useState<number>(-1);
-	const [patient, updatePatient] = React.useState<PatientSlim | null>(null);
+	const [patientId, updatePatientId] = React.useState<number>(1);
+	const [patient, updatePatient] = React.useState<PatientDetails | null>(null);
 
 	React.useEffect(() => {
 		
@@ -42,20 +43,9 @@ const App = () => {
 
 	  }, [patientId]);
 
-	  if(patient && patient?.id){ // TODO - make this a separate component
-		return (
-			<div>
-				<p>First: {patient.firstName}</p>
-				<p>Last: {patient.lastName}</p>
-				<p>Age: 43</p>
-			</div>)
-	  }
-
 	
 
-	return (<div>
-				{patients.map(m => (<p onClick={() => { updatePatientId(m.id)}}>{m.firstName} {m.lastName}</p>))}
-			</div>);
+	return (<div className="main-container"><Grid patient={patient} /></div>);
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));

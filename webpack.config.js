@@ -3,8 +3,17 @@ const { merge } = require("webpack-merge");
 
 module.exports = merge(base, {
 	entry: "./src/client/client",
+  module: {
+    rules: [
+      {
+      test:/\.css$/,
+      use:['style-loader','css-loader']
+      }
+  ]
+  },
   output: {
     path: base.output.path,
     filename: "bundle.js"
   },
+  
 });

@@ -5,6 +5,14 @@ export type PatientSlim = {
     photoUrl?: string;
 }
 
+export type PatientStats = {
+    date: string;
+    heartRate: number;
+    diastolic: number;
+    systolic: number;
+}
+
 export type PatientDetails = PatientSlim & {
     // TODO - add fields for the details page
+    stats: PatientStats[];
 }
