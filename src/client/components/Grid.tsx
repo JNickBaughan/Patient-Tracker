@@ -21,12 +21,31 @@ export const Grid = ({ patient }: { patient: PatientDetails | null }) => {
         return (<i className="arrow down"></i>);
     }
 
+    var heartRateRanges = [60, 73, 90];
+    var getCssClass = (heartRate: number, ranges: number[]) => {
+        if(heartRate <= ranges[0])
+        {
+            return " great"
+        }
+
+        if(heartRate >= ranges[1] && heartRate < ranges[2])
+        {
+            return " good"
+        }
+
+        if(heartRate >= ranges[2])
+        {
+            return " danger"
+        }
+        return ""
+    }
+
     var buildRow = (s: PatientStats, inx: number, arr: PatientStats[]) => {
         const prevRow = inx !== 0 ? arr[inx - 1] : null;
         return (
             <div className={`flex-grid${inx !== 0 ? " border-top" : "" }`}>
-                <div className="col">{s.date}</div>
-                <div className="col">{s.heartRate} {getArrow(inx, s.heartRate, prevRow?.heartRate)}</div>
+                <div className="col">{new Date(s.date).toLocaleDateString()}</div>
+                <div className={`col${getCssClass(s.heartRate, heartRateRanges)}`}>{s.heartRate} {getArrow(inx, s.heartRate, prevRow?.heartRate)}</div>
                 <div className="col">{s.diastolic} {getArrow(inx, s.diastolic, prevRow?.diastolic)}</div>
                 <div className="col">{s.systolic} {getArrow(inx, s.systolic, prevRow?.systolic)}</div>
             </div>
