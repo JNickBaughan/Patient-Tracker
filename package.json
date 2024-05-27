@@ -8,7 +8,7 @@
     "watch:client": "webpack --watch --config webpack.config.js",
     "watch:server": "webpack --watch --config webpack.server.config.js",
     "develop": "npm-run-all --parallel watch:server watch:client",
-    "start": "nodemon dist/server.bundle"
+    "start": "node dist/server.bundle --mode development"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.1",

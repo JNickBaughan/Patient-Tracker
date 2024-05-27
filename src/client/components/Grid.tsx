@@ -1,15 +1,23 @@
-import React from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 
-import {  PatientDetails, PatientStats  } from "../../common/types/types";
+export interface GridProps<T> {
+    data: T[] | null;
+    buildRow: (item: T, index: number, arr: T[]) => ReactElement;
+    countPerPage: number;
+}
 
-import { Row } from "./Row";
+export const Grid = <T extends unknown>({ data, buildRow, countPerPage }: GridProps<T>) => {
 
-export const Grid = ({ patient }: { patient: PatientDetails | null }) => {
+    var [localData, setLocalData] = useState(data);
+    var [pageNumber, setPageNumber] = useState(1);
+    var [visibleRecords, setVisibleRecords] = useState(localData?.splice((pageNumber - 1), countPerPage));
 
-    var buildRow = (stats: PatientStats, index: number, arr: PatientStats[]) => {
-        const prevStats = index !== 0 ? arr[index - 1] : null;
-        return <Row stats={stats} prevStats={prevStats} index={index} />
-    }
+    useEffect(() => {
+        debugger;
+        setLocalData(data);
+        setPageNumber(1);
+        setVisibleRecords(localData?.splice((pageNumber - 1), countPerPage));
+    }, [data])
 
     return (
         <>
@@ -21,7 +29,7 @@ export const Grid = ({ patient }: { patient: PatientDetails | null }) => {
                 <div className="col">Systolic</div>
             </div>
             {
-                patient?.stats?.sort((a, b) => new Date(a.date) - new Date(b.date))?.map(buildRow)
+                visibleRecords?.map(buildRow)
             }
         </>)
 }

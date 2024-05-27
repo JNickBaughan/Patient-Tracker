@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import '../app.css';
 import { Grid } from "./components/Grid";
-import { PatientSlim, PatientDetails  } from "../common/types/types";
+import { Row } from "./components/Row";
+import { PatientSlim, PatientDetails, PatientStats  } from "../common/types/types";
 
 const App = () => {
 
@@ -36,16 +37,20 @@ const App = () => {
 				  "Content-Type": "application/json",
 				}
 			  });
-		  updatePatient(await response.json());
+			  var result = await response.json();
+		  updatePatient(result);
 		}
 
 		patientId !== -1 && fetchData();
 
 	  }, [patientId]);
 
-	
+	  var buildRow = (stats: PatientStats, index: number, arr: PatientStats[]) => {
+        const prevStats = index !== 0 ? arr[index - 1] : null;
+        return <Row stats={stats} prevStats={prevStats} index={index} />
+    }
 
-	return (<div className="main-container"><Grid patient={patient} /></div>);
+	return (<div className="main-container"><Grid data={patient?.stats} buildRow={buildRow} countPerPage={5} /></div>);
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));
