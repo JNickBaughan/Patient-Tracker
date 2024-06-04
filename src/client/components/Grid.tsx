@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 
 export interface GridProps<T> {
     data: T[] | null | undefined;
@@ -10,20 +10,22 @@ export const Grid = <T extends unknown>({ data, buildRow, countPerPage }: GridPr
 
     var [localData, setLocalData] = useState(data);
     var [pageNumber, setPageNumber] = useState(1);
-    var [visibleRecords, setVisibleRecords] = useState(localData?.splice((pageNumber - 1), countPerPage));
+    var [visibleRecords, setVisibleRecords] = useState(localData?.slice((pageNumber - 1), countPerPage));
 
     useEffect(() => {
         setLocalData(data);
         setPageNumber(1);
-        setVisibleRecords(data?.splice((pageNumber - 1), countPerPage));
-    }, [data])
+        setVisibleRecords(data?.slice((pageNumber - 1), countPerPage));
+    }, [data, countPerPage])
 
-    if(!!localData && localData?.length)
-    {
-        return "No Data";
-    }
-
-    return visibleRecords?.map(buildRow);
-
-    
+    return (<>
+            {visibleRecords?.map(buildRow)}
+            <div className="border-top-bold pagination">
+                <span><i className="arrow left"></i><i className="arrow left"></i></span> 
+                <span><i className="arrow left"></i></span>
+                    <span className="pagination-count">{`${countPerPage} out of ${data?.length} Records`}</span>
+                <span><i className="arrow right"></i></span>
+                <span><i className="arrow right"></i><i className="arrow right"></i></span> 
+            </div>
+            </>)
 }

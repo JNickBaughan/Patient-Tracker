@@ -58,7 +58,7 @@ const App = () => {
                     <div className="col">Diastolic</div>
                     <div className="col">Systolic</div>
                 </div>
-				<Grid data={patient?.stats} buildRow={buildRow} countPerPage={5} />
+				<Grid data={patient?.stats ?? []} buildRow={buildRow} countPerPage={5} />
 		</div>);
 };
 
