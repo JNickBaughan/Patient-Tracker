@@ -94,6 +94,10 @@ body {
   position:relative;
 }
 
+.arrow:hover {
+  cursor: pointer;
+}
+
 .up {
   transform: rotate(-135deg);
   -webkit-transform: rotate(-135deg);

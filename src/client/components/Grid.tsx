@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect, useCallback } from "react";
 
 export interface GridProps<T> {
     data: T[] | null | undefined;
@@ -18,14 +18,19 @@ export const Grid = <T extends unknown>({ data, buildRow, countPerPage }: GridPr
         setVisibleRecords(data?.slice((pageNumber - 1), countPerPage));
     }, [data, countPerPage])
 
+    useEffect(() => setVisibleRecords(localData?.slice((pageNumber - 1), countPerPage)), [pageNumber])
+
+    var displayCountText = useCallback(() => {
+        var isVisibleCountLessThanCount = countPerPage > (visibleRecords?.length ?? -1);
+        return `${isVisibleCountLessThanCount ? visibleRecords?.length : countPerPage } out of ${data?.length} Records`
+    }, [countPerPage, visibleRecords]);
+    // TODO - deactivate arrow controls when no more pages
     return (<>
-            {visibleRecords?.map(buildRow)}
-            <div className="border-top-bold pagination">
-                <span><i className="arrow left"></i><i className="arrow left"></i></span> 
-                <span><i className="arrow left"></i></span>
-                    <span className="pagination-count">{`${countPerPage} out of ${data?.length} Records`}</span>
-                <span><i className="arrow right"></i></span>
-                <span><i className="arrow right"></i><i className="arrow right"></i></span> 
-            </div>
+                {visibleRecords?.map(buildRow)}
+                <div className="border-top-bold pagination">
+                    <span><i onClick={() => setPageNumber(pageNumber - 1)} className="arrow left"></i></span>
+                        <span className="pagination-count">{displayCountText()}</span>
+                    {<span><i onClick={() => setPageNumber(pageNumber + 1)} className="arrow right"></i></span>}
+                </div>
             </>)
 }
