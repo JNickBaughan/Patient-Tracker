@@ -50,7 +50,16 @@ const App = () => {
         return <Row stats={stats} prevStats={prevStats} index={index} />
     }
 
-	return (<div className="main-container"><Grid data={patient?.stats} buildRow={buildRow} countPerPage={5} /></div>);
+	return (<div className="main-container">
+		        <h1>Patient Stats</h1>
+                <div className="flex-grid header border-bottom-bold">
+                    <div className="col">Date</div>
+                    <div className="col flex-grid-thirds">Heart Rate</div>
+                    <div className="col">Diastolic</div>
+                    <div className="col">Systolic</div>
+                </div>
+				<Grid data={patient?.stats} buildRow={buildRow} countPerPage={5} />
+		</div>);
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));

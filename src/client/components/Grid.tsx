@@ -1,7 +1,7 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import { ReactElement, useState, useEffect } from "react";
 
 export interface GridProps<T> {
-    data: T[] | null;
+    data: T[] | null | undefined;
     buildRow: (item: T, index: number, arr: T[]) => ReactElement;
     countPerPage: number;
 }
@@ -13,23 +13,17 @@ export const Grid = <T extends unknown>({ data, buildRow, countPerPage }: GridPr
     var [visibleRecords, setVisibleRecords] = useState(localData?.splice((pageNumber - 1), countPerPage));
 
     useEffect(() => {
-        debugger;
         setLocalData(data);
         setPageNumber(1);
-        setVisibleRecords(localData?.splice((pageNumber - 1), countPerPage));
+        setVisibleRecords(data?.splice((pageNumber - 1), countPerPage));
     }, [data])
 
-    return (
-        <>
-            <h1>Patient Stats</h1>
-            <div className="flex-grid header border-bottom-bold">
-                <div className="col">Date</div>
-                <div className="col flex-grid-thirds">Heart Rate</div>
-                <div className="col">Diastolic</div>
-                <div className="col">Systolic</div>
-            </div>
-            {
-                visibleRecords?.map(buildRow)
-            }
-        </>)
+    if(!!localData && localData?.length)
+    {
+        return "No Data";
+    }
+
+    return visibleRecords?.map(buildRow);
+
+    
 }
