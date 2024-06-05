@@ -4,9 +4,10 @@ export interface GridProps<T> {
     data: T[] | null | undefined;
     buildRow: (item: T, index: number, arr: T[]) => ReactElement;
     countPerPage: number;
+    isLoading: boolean;
 }
 
-export const Grid = <T extends unknown>({ data, buildRow, countPerPage }: GridProps<T>) => {
+export const Grid = <T extends unknown>({ data, buildRow, countPerPage, isLoading }: GridProps<T>) => {
 
     var [localData, setLocalData] = useState(data);
     var [pageNumber, setPageNumber] = useState(1);
@@ -18,19 +19,27 @@ export const Grid = <T extends unknown>({ data, buildRow, countPerPage }: GridPr
         setVisibleRecords(data?.slice((pageNumber - 1), countPerPage));
     }, [data, countPerPage])
 
-    useEffect(() => setVisibleRecords(localData?.slice((pageNumber - 1), countPerPage)), [pageNumber])
+    useEffect(() => { 
+        var start = ((pageNumber - 1) * countPerPage);
+        var end = (start + countPerPage);
+        setVisibleRecords(localData?.slice(start, end))
+    }, [pageNumber])
 
     var displayCountText = useCallback(() => {
         var isVisibleCountLessThanCount = countPerPage > (visibleRecords?.length ?? -1);
-        return `${isVisibleCountLessThanCount ? visibleRecords?.length : countPerPage } out of ${data?.length} Records`
-    }, [countPerPage, visibleRecords]);
+        return `${isVisibleCountLessThanCount ? visibleRecords?.length : (countPerPage * pageNumber) } out of ${data?.length} Records`
+    }, [countPerPage, visibleRecords, data]);
+
     // TODO - deactivate arrow controls when no more pages
     return (<>
-                {visibleRecords?.map(buildRow)}
+                <div className="grid">
+                    {isLoading && <div className="loader"></div>}
+                    {visibleRecords?.map(buildRow)}
+                </div>
                 <div className="border-top-bold pagination">
                     <span><i onClick={() => setPageNumber(pageNumber - 1)} className="arrow left"></i></span>
-                        <span className="pagination-count">{displayCountText()}</span>
-                    {<span><i onClick={() => setPageNumber(pageNumber + 1)} className="arrow right"></i></span>}
+                    <span className="pagination-count">{displayCountText()}</span>
+                    <span><i onClick={() => setPageNumber(pageNumber + 1)} className="arrow right"></i></span>
                 </div>
             </>)
 }

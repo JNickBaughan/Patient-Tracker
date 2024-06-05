@@ -61,6 +61,55 @@ body {
   color: orangered;
 }
 
+.grid {
+  vertical-align: top;
+  margin-left: 3px;
+  margin-right: 3px;
+  margin-top: 10px;
+  position: relative;
+  min-height: 185px;
+}
+.loader {
+  /* change color here */
+  color: #1c4c5b
+}
+.loader,
+.loader:after {
+  box-sizing: border-box;
+}
+.loader {
+  display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    /* border: solid black; */
+    position: absolute;
+    top: -87px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.loader:after {
+  content: " ";
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6.4px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+  
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 400px) {
   .flex-grid {
     display: block;

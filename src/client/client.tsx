@@ -10,6 +10,7 @@ const App = () => {
 	const [patients, updatePatients] = React.useState<PatientSlim[]>([]);
 	const [patientId, updatePatientId] = React.useState<number>(1);
 	const [patient, updatePatient] = React.useState<PatientDetails | null>(null);
+	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
 	React.useEffect(() => {
 		
@@ -39,9 +40,14 @@ const App = () => {
 			  });
 			  var result = await response.json();
 		  updatePatient(result);
+		  setIsLoading(false);
 		}
 
-		patientId !== -1 && fetchData();
+		if(patientId !== -1)
+		{
+			setIsLoading(true);
+			fetchData();
+		} 
 
 	  }, [patientId]);
 
@@ -58,7 +64,7 @@ const App = () => {
                     <div className="col">Diastolic</div>
                     <div className="col">Systolic</div>
                 </div>
-				<Grid data={patient?.stats ?? []} buildRow={buildRow} countPerPage={5} />
+				<Grid data={patient?.stats ?? []} buildRow={buildRow} countPerPage={5} isLoading={isLoading} />
 		</div>);
 };
 
