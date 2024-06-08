@@ -2,7 +2,7 @@ import React from "react";
 
 import { PatientStats  } from "../../common/types/types";
 
-export const Row = ({ stats, prevStats, index  }: { stats: PatientStats, prevStats: PatientStats | null, index: number }) => {
+export const PatientStatsRow = ({ stats, prevStats, index  }: { stats: PatientStats, prevStats: PatientStats | null, index: number }) => {
 
     var heartRateRanges = [60, 73, 90];
     var getCssClass = (heartRate: number, ranges: number[]) => {

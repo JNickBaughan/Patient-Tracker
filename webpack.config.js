@@ -2,7 +2,7 @@ var base = require("./webpack.base");
 const { merge } = require("webpack-merge");
 
 module.exports = merge(base, {
-	entry: "./src/client/client",
+	entry: "./src/client/app",
   module: {
     rules: [
       {

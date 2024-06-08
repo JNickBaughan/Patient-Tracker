@@ -23,7 +23,6 @@ server.get("/", (_: Request, res: Response) => {
     <head></head>
     <body>
       <div id="root" />
-      <div>HELLO WORLD!!</div>
       <script src="bundle.js"></script>
     </body>
   </html>
