@@ -3,6 +3,7 @@ export type PatientSlim = {
     firstName: string;
     lastName: string;
     photoUrl?: string;
+    age: number;
 }
 
 export type PatientStats = {

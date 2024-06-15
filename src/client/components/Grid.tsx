@@ -27,8 +27,11 @@ export const Grid = <T extends unknown>({ data, buildRow, countPerPage, isLoadin
 
     var displayCountText = useCallback(() => {
         var isVisibleCountLessThanCount = countPerPage > (visibleRecords?.length ?? -1);
-        return `${isVisibleCountLessThanCount ? visibleRecords?.length : (countPerPage * pageNumber) } out of ${data?.length} Records`
+        return `Showing ${isVisibleCountLessThanCount ? visibleRecords?.length : (countPerPage * pageNumber) } of ${data?.length} Records`
     }, [countPerPage, visibleRecords, data]);
+
+    var displayArrows = useCallback(() => countPerPage <= (visibleRecords?.length ?? 0)
+    , [countPerPage, visibleRecords]);
 
     // TODO - deactivate arrow controls when no more pages
     return (<>

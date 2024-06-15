@@ -66,10 +66,6 @@ const App = () => {
 	if(patient === null && !isLoading){
 		return (<div className="main-container">
 			<h1>Patients</h1>
-			<div className="flex-grid header border-bottom-bold">
-				<div className="col">ID</div>
-				<div className="col flex-grid-thirds">Patient Name</div>
-			</div>
 			<Grid data={patients ?? []} buildRow={buildPatientRow} countPerPage={5} isLoading={patientIsLoading} />
 		</div>)
 	}

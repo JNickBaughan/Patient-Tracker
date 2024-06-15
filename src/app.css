@@ -61,6 +61,16 @@ body {
   color: orangered;
 }
 
+.patient-card {
+  background-color: aliceblue;
+  margin: 3px;
+  height: 130px;
+}
+
+.left-padding {
+  margin-left: 35px;
+}
+
 .grid {
   vertical-align: top;
   margin-left: 3px;

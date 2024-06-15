@@ -4,10 +4,15 @@ const router = express.Router();
 
 router.post('/', (_: Request, res: Response<PatientSlim[]>)  => {
     res.send([
-        { id: 15, firstName: "Nick", lastName: "Baughan", photoUrl: "" },
-        { id: 87, firstName: "Peter", lastName: "Griffin", photoUrl: "" },
-        { id: 74, firstName: "Glen", lastName: "Quagmire", photoUrl: "" },
-        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "" }
+        
+        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 },
+        { id: 96, firstName: "Homer", lastName: "Simpson", photoUrl: "//upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png", age: 45 },
+        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "//upload.wikimedia.org/wikipedia/en/thumb/a/aa/Bart_Simpson_200px.png/170px-Bart_Simpson_200px.png", age: 45 },
+        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 },
+        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 },
+        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 },
+        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 }
+    
     ]);
 });
 
@@ -19,7 +24,7 @@ router.get('/:id', (req: Request, res: Response<PatientDetails>)  => {
         res.send({ id: 15
             ,firstName: "Nick"
             ,lastName: "Baughan"
-            ,photoUrl: ""
+            , photoUrl: "", age: 45 
             ,stats: [
                 { date: "2023-09-03", heartRate: 49, diastolic: 82, systolic: 117 }
                 ,{ date: "2023-11-11", heartRate: 78, diastolic: 82, systolic: 128 }

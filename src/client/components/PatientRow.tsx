@@ -2,14 +2,23 @@ import React from "react";
 
 import { PatientSlim  } from "../../common/types/types";
 
-export const PatientRow = ({ patient, index, onClick }: { patient: PatientSlim, index: number, onClick: (patient: PatientSlim) => void; }) => {
+export const PatientRow = ({ patient, onClick }: { patient: PatientSlim, index: number, onClick: (patient: PatientSlim) => void; }) => {
 
     return (
-        <div className={`flex-grid${index !== 0 ? " border-top" : "" }`} onClick={() => { onClick(patient) }}>
-            <div className="col">{patient.id}</div>
-            <div className="col">{patient.firstName + " " + patient.lastName}</div>
-            
+        <div className={"patient-card flex-grid"} onClick={() => { onClick(patient) }}>
+            <div className="col left-padding flex-grid">
+            <img  style={{backgroundImage: `url:${patient.photoUrl}`}}
+            decoding="async" width="85" height="125"></img>
+            </div>
+            <div className="col">
+                <div>42 years old</div>
+                <div>{patient.firstName + " " + patient.lastName}</div>
+            </div>
         </div>
     )
 
 }
+/*
+
+170 / 253
+*/
