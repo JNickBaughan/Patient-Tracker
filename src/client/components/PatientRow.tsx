@@ -7,8 +7,10 @@ export const PatientRow = ({ patient, onClick }: { patient: PatientSlim, index: 
     return (
         <div className={"patient-card flex-grid"} onClick={() => { onClick(patient) }}>
             <div className="col left-padding flex-grid">
-            <img  style={{backgroundImage: `url:${patient.photoUrl}`}}
-            decoding="async" width="85" height="125"></img>
+             <div className="block">
+             {/* https://imagekit.io/blog/lazy-loading-images-complete-guide/ */}
+                <img className="portrait" src={patient.photoUrl} alt="External Image" />
+             </div>
             </div>
             <div className="col">
                 <div>42 years old</div>
@@ -18,7 +20,3 @@ export const PatientRow = ({ patient, onClick }: { patient: PatientSlim, index: 
     )
 
 }
-/*
-
-170 / 253
-*/

@@ -65,6 +65,24 @@ body {
   background-color: aliceblue;
   margin: 3px;
   height: 130px;
+  cursor:pointer;
+}
+
+.block {
+  display: inline-flex;
+  padding: 9px 1px;
+  background-color: darkslategray;
+  border-radius: 8%;
+  width: 88px;
+}
+
+.portrait {
+  display: block;
+  max-width: 82px;
+  max-height: 105px;
+  width: auto;
+  height: auto;
+  margin: auto;
 }
 
 .left-padding {
@@ -145,15 +163,28 @@ body {
   padding: 0px 10px;
 }
 
+.page-number {
+  padding: 5px;
+  text-align: center;
+  margin: 5px;
+  border: 1px solid;
+  border-color: black;
+  border-radius: 50%;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.selected {
+  font-weight: bold;
+  background-color: aliceblue;
+}
 .arrow {
   border: solid black;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
   position:relative;
-}
-
-.arrow:hover {
   cursor: pointer;
 }
 

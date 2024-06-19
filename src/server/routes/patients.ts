@@ -4,15 +4,13 @@ const router = express.Router();
 
 router.post('/', (_: Request, res: Response<PatientSlim[]>)  => {
     res.send([
-        
-        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 },
-        { id: 96, firstName: "Homer", lastName: "Simpson", photoUrl: "//upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png", age: 45 },
-        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "//upload.wikimedia.org/wikipedia/en/thumb/a/aa/Bart_Simpson_200px.png/170px-Bart_Simpson_200px.png", age: 45 },
-        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 },
-        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 },
-        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 },
-        { id: 96, firstName: "Bart", lastName: "Simpson", photoUrl: "", age: 45 }
-    
+        { id: 96, firstName: "George", lastName: "Washington", photoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg/1024px-Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg", age: 45 },
+        { id: 96, firstName: "John", lastName: "Jay", photoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/John_Jay_%28Gilbert_Stuart_portrait%29.jpg/1024px-John_Jay_%28Gilbert_Stuart_portrait%29.jpg", age: 45 },
+        { id: 96, firstName: "Thomas", lastName: "Jefferson", photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29%28cropped%29.jpg", age: 45 },
+        { id: 96, firstName: "Daniel", lastName: "Shay", photoUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Daniel_Shays_%28Shays%27_Rebellion%29.jpg", age: 45 },
+        { id: 96, firstName: "Benjamin", lastName: "Franklin", photoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg/1024px-Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg", age: 45 }, 
+        { id: 96, firstName: "Alexander", lastName: "Hamilton", photoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/John_Trumbull_-_Alexander_Hamilton_-_Google_Art_Project.jpg/1024px-John_Trumbull_-_Alexander_Hamilton_-_Google_Art_Project.jpg", age: 45 },
+        { id: 96, firstName: "John", lastName: "Adams", photoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Gilbert_Stuart%2C_John_Adams%2C_c._1800-1815%2C_NGA_42933.jpg/1024px-Gilbert_Stuart%2C_John_Adams%2C_c._1800-1815%2C_NGA_42933.jpg", age: 65 }
     ]);
 });
 
