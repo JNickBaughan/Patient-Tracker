@@ -1,8 +1,12 @@
-body {
-    font-family: "Source Sans Pro", "Arial", sans-serif;
-    font-size: 1.2em;
-    line-height: 1.2;
-    color: darkslategray;
+html, body {
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", "Arial", sans-serif;
+  font-size: 1.2em;
+  line-height: 1.2;
+  height: 99%;
+  color: darkslategray;
 }
 
 .main-container {
@@ -89,6 +93,10 @@ body {
   margin-left: 35px;
 }
 
+.infinite-scroll {
+  overflow-y: scroll;
+  height: 84vh;
+}
 .grid {
   vertical-align: top;
   margin-left: 3px;

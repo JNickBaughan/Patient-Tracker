@@ -1,39 +1,38 @@
 import React from "react";
+import { StrictMode } from 'react';
 import ReactDOM from "react-dom";
 import '../app.css';
 import { Grid } from "./components/Grid";
+import { InfiniteScroll } from "./components/InfiniteScroll";
 import { PatientStatsRow } from "./components/PatientStatsRow";
 import { PatientRow } from "./components/PatientRow";
 import { PatientSlim, PatientDetails, PatientStats  } from "../common/types/types";
 
 const App = () => {
 
-	const [patients, updatePatients] = React.useState<PatientSlim[]>([]);
 	const [patientId, updatePatientId] = React.useState<number | null>(null);
 	const [patient, updatePatient] = React.useState<PatientDetails | null>(null);
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
-	const [patientIsLoading, setPatientIsLoading] = React.useState<boolean>(false);
 
-	React.useEffect(() => {
-		
-		const fetchData = async () => {
+	var loadPatients = React.useCallback(() => {
+		async function fetchPatients() {
 			const response = await fetch('patients', {
 				method: "POST", 
 				headers: {
-				  "Content-Type": "application/json",
+				"Content-Type": "application/json",
 				},
 				body: JSON.stringify({}),
-			  });
-		  updatePatients(await response.json());
-		  setPatientIsLoading(false);
-		}
-		setPatientIsLoading(true);
-		fetchData();
-	  
-	  }, []);
+			});
+			return await response.json();
+		};
+
+		return fetchPatients();
+
+	}, [])
+
+
 
 	  React.useEffect(() => {
-
 		const fetchData = async () => {
 			const response = await fetch(`patients/${patientId}`, {
 				method: "GET", 
@@ -51,7 +50,6 @@ const App = () => {
 			setIsLoading(true);
 			fetchData();
 		} 
-
 	  }, [patientId]);
 
 	  var buildPaientDetailRow = (stats: PatientStats, index: number, arr: PatientStats[]) => {
@@ -60,14 +58,14 @@ const App = () => {
     }
 
 	var buildPatientRow = (patient: PatientSlim, index: number) => {
-        return <PatientRow patient={patient} index={index} onClick={(patient: PatientSlim) => { updatePatientId(patient.id)}} />
+        return <PatientRow key={patient.id + '-slim'} patient={patient} index={index} onClick={(patient: PatientSlim) => { updatePatientId(patient.id)}} />
     }
 
 	if(patient === null && !isLoading){
 		return (<div className="main-container">
-			<h1>Patients</h1>
-			<Grid data={patients ?? []} buildRow={buildPatientRow} countPerPage={5} isLoading={patientIsLoading} />
-		</div>)
+					<h1>Patients</h1>
+					<InfiniteScroll loadData={loadPatients} buildContent={buildPatientRow} bottomPlaceholder={(<div>Fetching More Patients...</div>)} />
+				</div>);
 	}
 
 	return (<div className="main-container">
@@ -82,4 +80,6 @@ const App = () => {
 		</div>);
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(  <StrictMode>
+    <App />
+  </StrictMode>, document.getElementById("root"));
