@@ -12,8 +12,9 @@ export const PatientRow = ({ patient, onClick }: { patient: PatientSlim, index: 
              </div>
             </div>
             <div className="col">
-                <div>42 years old</div>
-                <div>{patient.firstName + " " + patient.lastName}</div>
+                <h6 className="patient-name">{patient.firstName + " " + patient.lastName}</h6>
+                <p className="patient-detail">{patient.age} years old</p>
+                <p className="patient-detail">Jan 29, 1780 last visit</p>
             </div>
         </div>
     )

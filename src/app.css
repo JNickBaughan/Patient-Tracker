@@ -70,6 +70,18 @@ html, body {
   margin: 3px;
   height: 130px;
   cursor:pointer;
+  width: 28vw;
+}
+
+.patient-name {
+  font-size: 16px;
+  line-height: 21px;
+  margin: 1px;
+}
+
+.patient-detail {
+  font-size: 12px;
+  line-height: 21px;
 }
 
 .block {
