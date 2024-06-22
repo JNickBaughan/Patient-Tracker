@@ -40,9 +40,9 @@ export const Grid = <T extends unknown>({ data, buildRow, countPerPage, isLoadin
         var totalRecords = localData?.length ?? 0;
         if(totalRecords > countPerPage && totalRecords !== 0){
             return (<div className="border-top-bold pagination">
-                <span><i onClick={() => setPageNumber(pageNumber - 1)} className="arrow left"></i></span>
+                <span className="navigation-control-arrow"><i onClick={() => setPageNumber(pageNumber - 1)} className="arrow left"></i></span>
                 <span className="pagination-count">{displayPageNumbers()}</span>
-                <span><i onClick={() => setPageNumber(pageNumber + 1)} className="arrow right"></i></span>
+                <span className="navigation-control-arrow"><i onClick={() => setPageNumber(pageNumber + 1)} className="arrow right"></i></span>
             </div>)
         }
     }, [countPerPage, localData, pageNumber])

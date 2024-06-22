@@ -3,23 +3,29 @@ import React, { ReactElement, useState, useEffect, useRef }  from "react";
 export interface GridProps<T> {
     loadData: () => Promise<T[]> | null | undefined;
     buildContent: (item: T, index: number, arr: T[]) => ReactElement;
-    bottomPlaceholder: JSX.Element;
+    bottomPlaceholder: JSX.Element | string | (() => JSX.Element) ;
 }
 
-export const InfiniteScroll =  <T extends unknown>({ loadData, buildContent, bottomPlaceholder }: GridProps<T>) => {
+export const InfiniteScroll =  <T extends unknown>({  loadData, buildContent, bottomPlaceholder }: GridProps<T>) => {
    
-    const [data, setData] = useState<T[]>([]);
+    const [localData, setLocalData] = useState<T[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [needToFetchData, setNeedToFetchData] = useState(true);
 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const bottomPlaceholderRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if(scrollContainerRef?.current !== null){
             const onscroll = () => {
-                const isReachBottom = scrollContainerRef?.current?.scrollTop === ((scrollContainerRef?.current?.scrollHeight ?? 0) - (scrollContainerRef?.current?.offsetHeight ?? 0));
-                if (isReachBottom) {
-                    setNeedToFetchData(true);
+                if(bottomPlaceholderRef?.current && scrollContainerRef?.current){
+                    const { bottom, height, top } = bottomPlaceholderRef?.current?.getBoundingClientRect();
+                    const containerRect = scrollContainerRef?.current?.getBoundingClientRect();
+
+                    const isReachBottom = top <= containerRect.top ? containerRect.top - top <= height : bottom - containerRect.bottom <= height;
+                    if (isReachBottom) {
+                        setNeedToFetchData(true);
+                    }
                 }
               };
               scrollContainerRef.current.addEventListener("scroll", onscroll);
@@ -35,7 +41,7 @@ export const InfiniteScroll =  <T extends unknown>({ loadData, buildContent, bot
             if(loadData){
                 setIsLoading(true);
                 var results: T[] | null | undefined = await loadData();
-                !!results && setData([...data, ...results]);
+                !!results && setLocalData([...localData, ...results]);
                 setIsLoading(false);
                 setNeedToFetchData(false);
             }
@@ -49,8 +55,8 @@ export const InfiniteScroll =  <T extends unknown>({ loadData, buildContent, bot
 
 
     return (<div className="infinite-scroll" ref={scrollContainerRef}>
-                {isLoading && data?.length === 0 && <div className="loader" />}
-                {data?.map(buildContent)}
-                {data?.length !== 0 && (<div className="patient-card">Fetching More Patients...</div>)}
+                {isLoading && localData?.length === 0 && <div className="loader" />}
+                {localData?.map(buildContent)}
+                {localData?.length !== 0 && (<div ref={bottomPlaceholderRef}>{typeof bottomPlaceholder === 'function' ? bottomPlaceholder() : bottomPlaceholder}</div>)}
             </div>)
 }

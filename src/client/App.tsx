@@ -64,7 +64,7 @@ const App = () => {
 	if(patient === null && !isLoading){
 		return (<div className="main-container">
 					<h1>Patients</h1>
-					<InfiniteScroll loadData={loadPatients} buildContent={buildPatientRow} bottomPlaceholder={(<div>Fetching More Patients...</div>)} />
+					<InfiniteScroll loadData={loadPatients} buildContent={buildPatientRow} bottomPlaceholder={() => (<div className="loading-message"><div className="progress-loader"></div></div>)} />
 				</div>);
 	}
 
